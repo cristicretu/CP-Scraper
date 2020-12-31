@@ -23,37 +23,50 @@ def get_value(s):
     return ans
 
 
-def make_files(input_name, input_value):
+def make_files(input_name, input_value, current_site, file):
     directory_name = input_name[:len(input_name) - 3]
-    output_name = directory_name + '.out'
     mainfile_name = directory_name + '.cpp'
 
-    # get snippets
-    snippets = ''
-    with open('snippets.cpp', 'r') as f:
-        snippets += f.read()
-        snippets += '\nstd::ifstream fin("' + input_name + '");'
-        snippets += '\nstd::ofstream fout("' + output_name + '");'
-        snippets += '\n\nint main() {\n\n  return 0;\n}'
-
     # now make the directory
-    path = os.path.join(directory_path, directory_name)
+    current_site = '/' + current_site + '/'
+    temp_path = directory_path + current_site
+    print(temp_path)
+    path = os.path.join(temp_path, directory_name)
     os.mkdir(path)
 
-    # now create the files
-    with open(os.path.join(path, input_name), 'w') as fp:
-        fp.write(input_value)
-    with open(os.path.join(path, output_name), 'w') as fp:
-        pass
+    if file == True:
+        output_name = directory_name + '.out'
+        # get snippets
+        snippets = ''
+        with open('snippets.cpp', 'r') as f:
+            snippets += f.read()
+            snippets += '\nstd::ifstream fin("' + input_name + '");'
+            snippets += '\nstd::ofstream fout("' + output_name + '");'
+            snippets += '\n\nint main() {\n\n  return 0;\n}'
+
+        # now create the files
+        with open(os.path.join(path, input_name), 'w') as fp:
+            fp.write(input_value)
+        with open(os.path.join(path, output_name), 'w') as fp:
+            pass
+    elif file == False:
+        snippets = ''
+        with open('snippets.cpp', 'r') as f:
+            snippets += f.read()
+            snippets += '\n\nint main() {\n  using namespace std;\n'
+            snippets += '  ios_base::sync_with_stdio(false);\n  cin.tie(nullptr);\n\n  return 0;\n}'
     with open(os.path.join(path, mainfile_name), 'w') as fp:
         fp.write(snippets)
 
-    os.chdir(path)
-    os.system('code .')
+    print('Do you want to open VSCODE? [y/n]:')
+    choice = input()
+    if choice == 'y':
+        os.chdir(path)
+        os.system('code .')
     print('Done! Good luck.')
 
 
-def infoarena(soup):
+def infoarena(soup, current_site):
     get_info = soup.find(class_="example")
     get_input = get_info.get_text()
 
@@ -74,11 +87,33 @@ def infoarena(soup):
     inputfile_value = get_value(get_info[0])
     # outputfile_value = get_value(get_info[1]) no need for this
 
-    make_files(inputfile_name, inputfile_value)
+    make_files(inputfile_name, inputfile_value, current_site, True)
 
 
-def pbinfo(soup):
-    return 0
+def pbinfo(soup, current_site, url):
+    get_info = soup.find_all('pre')
+    # get input value
+    inputfile_value = get_value(get_info[0])
+
+    url = url[31:]
+    url = url[url.index('/') + 1:] + '.in'
+
+    names = soup.find_all('code')
+    inputfile_neim = ''
+    for i in names:
+        text = i.get_text()
+        if '.in' in text:
+            inputfile_neim = text
+            break
+
+    file = False
+    if len(inputfile_neim):
+        file = True
+
+    if file == True:
+        make_files(inputfile_neim, inputfile_value, current_site, file)
+    else:
+        make_files(url, inputfile_value, current_site, file)
 
 
 if __name__ == "__main__":
@@ -116,8 +151,8 @@ if __name__ == "__main__":
 
     # uatafac is that switch case python bro
     if (current_site == 'infoarena'):
-        infoarena(soup)
+        infoarena(soup, current_site)
     elif (current_site == 'pbinfo'):
-        pbinfo(soup)
+        pbinfo(soup, current_site, clasa.url)
     # elif (current_site == 'codeforces')
     #     tobecontinued

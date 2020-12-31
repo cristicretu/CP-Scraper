@@ -1,1 +1,1 @@
-/home/cristic/Projects/cplusplus/infoarena
+/home/cristic/Projects/cplusplus
