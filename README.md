@@ -32,8 +32,11 @@ Then, all you have to do is to paste the *full link* of your problem.
 
 ![](https://cdn.discordapp.com/attachments/427049682364268544/794227851753816084/ezgif.com-gif-maker.gif)
 
+<<<<<<< HEAD
 *Ex: Infoarena*
 
 ![](https://cdn.discordapp.com/attachments/427049682364268544/794265081423724624/aaa.gif)
 
 *Ex: Pbinfo; file-console input*
+=======
+>>>>>>> f78af5b206eaee32117410190751c0a81c4d86a7
