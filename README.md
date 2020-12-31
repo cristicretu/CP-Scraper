@@ -24,7 +24,7 @@ python3 main.py
 
 Then, all you have to do is to paste the *full link* of your problem.
 
-![](https://cdn.discordapp.com/attachments/427049682364268544/794193740696518656/unknown.png)
+![](https://cdn.discordapp.com/attachments/427049682364268544/794227851753816084/ezgif.com-gif-maker.gif)
 
 After that, your files will be ready.
 

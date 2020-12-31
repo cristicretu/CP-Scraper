@@ -48,6 +48,8 @@ def make_files(input_name, input_value):
     with open(os.path.join(path, mainfile_name), 'w') as fp:
         fp.write(snippets)
 
+    os.chdir(path)
+    os.system('code .')
     print('Done! Good luck.')
 
 
