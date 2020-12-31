@@ -26,7 +26,3 @@ Then, all you have to do is to paste the *full link* of your problem.
 
 ![](https://cdn.discordapp.com/attachments/427049682364268544/794227851753816084/ezgif.com-gif-maker.gif)
 
-After that, your files will be ready.
-
-![](https://cdn.discordapp.com/attachments/427049682364268544/794193896393146368/unknown.png)
-
