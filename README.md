@@ -9,7 +9,14 @@ Clone this repo, and change the **path.txt** with your desired path from your pc
 
 ## How to run it?
 
-In the terminal, navigate to this repo, and type:
+You also need Beautiful Soup and Requests, to scrape the site, so if you don't have them installed, do:
+
+```
+pip3 install requests
+pip3 install bs4
+```
+
+in the terminal, and then navigate to this repo, and type:
 
 ```
 python3 main.py
