@@ -110,7 +110,7 @@ def pbinfo(soup, current_site, url):
             break
 
     file = False
-    if len(inputfile_neim):
+    if inputfile_neim:
         file = True
 
     if file == True:
