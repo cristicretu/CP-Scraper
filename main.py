@@ -40,8 +40,8 @@ def make_files(input_name, input_value, current_site, file):
             output_name = 'output.txt'
         # get snippets
         snippets = ''
-        with open('snippets.cpp', 'r') as f:
-            snippets += f.read()
+        with open('snippets.cpp', 'r') as fr:
+            snippets += fr.read()
             snippets += '\nstd::ifstream fin("' + input_name + '");'
             snippets += '\nstd::ofstream fout("' + output_name + '");'
             snippets += '\n\nint main() {\n\n  return 0;\n}'
@@ -53,8 +53,8 @@ def make_files(input_name, input_value, current_site, file):
             pass
     elif file is False:
         snippets = ''
-        with open('snippets.cpp', 'r') as f:
-            snippets += f.read()
+        with open('snippets.cpp', 'r') as fx:
+            snippets += fx.read()
             snippets += '\n\nint main() {\n  using namespace std;\n'
             snippets += '  ios_base::sync_with_stdio(false);\n  cin.tie(nullptr);\n\n  return 0;\n}'
     with open(os.path.join(path, mainfile_name), 'w') as fp:
@@ -74,10 +74,6 @@ def infoarena(soup, current_site):
 
     # get input name
     inputfile_name = get_input[:get_input.index('.')] + '.in'
-    outputfile_name = inputfile_name[:len(inputfile_name) - 3] + '.out'
-
-    # get problem name for directory
-    directory_name = inputfile_name[:len(inputfile_name) - 3]
 
     get_info = get_info.find_all('td')
     # this will make get_info a list,
