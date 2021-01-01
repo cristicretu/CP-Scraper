@@ -1,11 +1,13 @@
 # CP-Scraper
 Competitive Programming Scraper is a python script that automatically creates input and output files, specific folders and pre-completed snippets, when given an online judge url.
 
-Currently, it supports *infoarena.ro* and *pbinfo.ro*. Soon Codeforces will be supported too!
+Also, it can open *vscode* with all the freshly made files.
+
+Currently, it supports ***codeforces.com***, ***infoarena.ro*** and ***pbinfo.ro***!
 
 ## How to use it?
 
-Clone this repo,
+Clone this *repo*,
 
 ```
 git clone git@github.com:cristicretu/CP-Scraper.git

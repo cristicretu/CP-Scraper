@@ -30,12 +30,15 @@ def make_files(input_name, input_value, current_site, file):
     # now make the directory
     current_site = '/' + current_site + '/'
     temp_path = directory_path + current_site
-    print(temp_path)
     path = os.path.join(temp_path, directory_name)
     os.mkdir(path)
 
     if file == True:
         output_name = directory_name + '.out'
+        print(current_site)
+        if (current_site == '/cf/'):
+            input_name = 'input.txt'
+            output_name = 'output.txt'
         # get snippets
         snippets = ''
         with open('snippets.cpp', 'r') as f:
@@ -116,6 +119,38 @@ def pbinfo(soup, current_site, url):
         make_files(url, inputfile_value, current_site, file)
 
 
+def replaceS(input, pattern, replaceWith):
+    return input.replace(pattern, replaceWith)
+
+
+def codeforces(soup, current_site, url):
+    get_file = soup.find_all(class_='input-file')
+    get_file = get_file[0].get_text()[5:]
+    get_file.split(' ')
+
+    # get problem name and number
+    url = url[::-1]
+    letter = url[0]
+    url = replaceS(url, '/', ' ')
+    number = str([int(s) for s in url.split() if s.isdigit()])
+    number = number[::-1]
+    number = number[1:len(number) - 1]
+
+    problem_name = number + '_' + letter + '.in'
+
+    if (get_file.split(' ')[0] == 'standard'):
+        make_files(problem_name, '', current_site, False)
+    else:
+        # get the input
+        get_info = soup.find_all('pre')
+        inputfile_value = get_info[0]
+        for br in inputfile_value.find_all("br"):
+            br.replace_with("\n")
+        inputfile_value = inputfile_value.get_text()
+
+        make_files(problem_name, inputfile_value, current_site, True)
+
+
 if __name__ == "__main__":
     clasa = Scraper()
     print('What URL does your problem have?')
@@ -123,9 +158,9 @@ if __name__ == "__main__":
 
     # check for supported site
     while True:
-        if clasa.url[12:21] == 'infoarena' or clasa.url[12:18] == 'pbinfo':
+        if clasa.url[12:21] == 'infoarena' or clasa.url[12:18] == 'pbinfo' or clasa.url[8:18] == 'codeforces':
             break
-        elif clasa.url[12:21] != 'infoarena' or clasa.url[12:18] != 'pbinfo':
+        elif clasa.url[12:21] != 'infoarena' or clasa.url[12:18] != 'pbinfo' or clasa.url[8:18] != 'codeforces':
             print('Site not supported, try again:')
             clasa.url = str(input())
 
@@ -135,10 +170,14 @@ if __name__ == "__main__":
         current_site = 'infoarena'
     elif clasa.url[12:18] == 'pbinfo':
         current_site = 'pbinfo'
+    elif clasa.url[8:18] == 'codeforces':
+        current_site = 'codeforces'
+
     while True:
-        if (current_site == 'infoarena' and clasa.url[25:33] == 'problema') or (current_site == 'pbinfo' and clasa.url[22:30] == 'probleme'):
+        if (current_site == 'infoarena' and clasa.url[25:33] == 'problema') or (current_site == 'pbinfo' and clasa.url[22:30] == 'probleme') or (current_site == 'codeforces' and (clasa.url[34:41] == 'problem' or clasa.url[35:42] == 'problem' or clasa.url[36:43] == 'problem')):
             break
-        elif (current_site == 'infoarena' and clasa.url[25:33] != 'problema') or (current_site == 'pbinfo' and clasa.url[22:30] != 'probleme'):
+
+        elif (current_site == 'infoarena' and clasa.url[25:33] != 'problema') or (current_site == 'pbinfo' and clasa.url[22:30] != 'probleme') or (current_site == 'codeforces' and (clasa.url[34:41] != 'problem' or clasa.url[35:42] != 'problem' or clasa.url[36:43] != 'problem')):
             print('Not a valid problem, try again:')
             clasa.url = str(input())
 
@@ -154,5 +193,5 @@ if __name__ == "__main__":
         infoarena(soup, current_site)
     elif (current_site == 'pbinfo'):
         pbinfo(soup, current_site, clasa.url)
-    # elif (current_site == 'codeforces')
-    #     tobecontinued
+    elif (current_site == 'codeforces'):
+        codeforces(soup, 'cf', clasa.url)
