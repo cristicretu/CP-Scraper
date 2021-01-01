@@ -35,7 +35,6 @@ def make_files(input_name, input_value, current_site, file):
 
     if file is True:
         output_name = directory_name + '.out'
-        print(current_site)
         if (current_site == '/cf/'):
             input_name = 'input.txt'
             output_name = 'output.txt'
