@@ -160,7 +160,7 @@ if __name__ == "__main__":
     while True:
         if clasa.url[12:21] == 'infoarena' or clasa.url[12:18] == 'pbinfo' or clasa.url[8:18] == 'codeforces':
             break
-        elif clasa.url[12:21] != 'infoarena' or clasa.url[12:18] != 'pbinfo' or clasa.url[8:18] != 'codeforces':
+        if clasa.url[12:21] != 'infoarena' or clasa.url[12:18] != 'pbinfo' or clasa.url[8:18] != 'codeforces':
             print('Site not supported, try again:')
             clasa.url = str(input())
 
@@ -177,7 +177,7 @@ if __name__ == "__main__":
         if (current_site == 'infoarena' and clasa.url[25:33] == 'problema') or (current_site == 'pbinfo' and clasa.url[22:30] == 'probleme') or (current_site == 'codeforces' and (clasa.url[34:41] == 'problem' or clasa.url[35:42] == 'problem' or clasa.url[36:43] == 'problem')):
             break
 
-        elif (current_site == 'infoarena' and clasa.url[25:33] != 'problema') or (current_site == 'pbinfo' and clasa.url[22:30] != 'probleme') or (current_site == 'codeforces' and (clasa.url[34:41] != 'problem' or clasa.url[35:42] != 'problem' or clasa.url[36:43] != 'problem')):
+        if (current_site == 'infoarena' and clasa.url[25:33] != 'problema') or (current_site == 'pbinfo' and clasa.url[22:30] != 'probleme') or (current_site == 'codeforces' and (clasa.url[34:41] != 'problem' or clasa.url[35:42] != 'problem' or clasa.url[36:43] != 'problem')):
             print('Not a valid problem, try again:')
             clasa.url = str(input())
 
