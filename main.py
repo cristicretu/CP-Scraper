@@ -33,7 +33,7 @@ def make_files(input_name, input_value, current_site, file):
     path = os.path.join(temp_path, directory_name)
     os.mkdir(path)
 
-    if file == True:
+    if file is True:
         output_name = directory_name + '.out'
         print(current_site)
         if (current_site == '/cf/'):
@@ -52,7 +52,7 @@ def make_files(input_name, input_value, current_site, file):
             fp.write(input_value)
         with open(os.path.join(path, output_name), 'w') as fp:
             pass
-    elif file == False:
+    elif file is False:
         snippets = ''
         with open('snippets.cpp', 'r') as f:
             snippets += f.read()
@@ -113,7 +113,7 @@ def pbinfo(soup, current_site, url):
     if len(inputfile_neim):
         file = True
 
-    if file == True:
+    if file is True:
         make_files(inputfile_neim, inputfile_value, current_site, file)
     else:
         make_files(url, inputfile_value, current_site, file)
