@@ -27,7 +27,7 @@ def get_value(s):
     return ans
 
 
-def make_files(input_name, input_value, current_site, file):
+def make_files(input_name, input_value, current_site, file, editor):
     directory_name = input_name[:len(input_name) - 3]
     mainfile_name = directory_name + '.cpp'
 
@@ -83,15 +83,19 @@ def make_files(input_name, input_value, current_site, file):
         fp.write(snippets)
 
     # user choice
-    print('Do you want to open VSCODE? [y/n]:')
+    print('Do you want to open the editor? [y/n]:')
     choice = input()
     if choice == 'y':
         os.chdir(path)
-        os.system('code .')
+        editor = editor + ' .'
+        if editor == 'vscode .':
+            editor = editor[2:]
+        os.system(editor)
+
     print('Done! Good luck.')
 
 
-def infoarena(soup, current_site):
+def infoarena(soup, current_site, editor):
     get_info = soup.find(class_="example")
     get_input = get_info.get_text()
 
@@ -108,10 +112,10 @@ def infoarena(soup, current_site):
     inputfile_value = get_value(get_info[0])
     # outputfile_value = get_value(get_info[1]) no need for this
 
-    make_files(inputfile_name, inputfile_value, current_site, True)
+    make_files(inputfile_name, inputfile_value, current_site, True, editor)
 
 
-def pbinfo(soup, current_site, url):
+def pbinfo(soup, current_site, url, editor):
     get_info = soup.find_all('pre')
     # get input value
     inputfile_value = get_value(get_info[0])
@@ -132,16 +136,16 @@ def pbinfo(soup, current_site, url):
         file = True
 
     if file is True:
-        make_files(inputfile_neim, inputfile_value, current_site, file)
+        make_files(inputfile_neim, inputfile_value, current_site, file, editor)
     else:
-        make_files(url, inputfile_value, current_site, file)
+        make_files(url, inputfile_value, current_site, file, editor)
 
 
 def replaceS(sinput, pattern, replaceWith):
     return sinput.replace(pattern, replaceWith)
 
 
-def codeforces(soup, current_site, url):
+def codeforces(soup, current_site, url, editor):
     get_file = soup.find_all(class_='input-file')
     get_file = get_file[0].get_text()[5:]
     get_file.split(' ')
@@ -157,7 +161,7 @@ def codeforces(soup, current_site, url):
     problem_name = number + '_' + letter + '.in'
 
     if (get_file.split(' ')[0] == 'standard'):
-        make_files(problem_name, '', current_site, False)
+        make_files(problem_name, '', current_site, False, editor)
     else:
         # get the input
         get_info = soup.find_all('pre')
@@ -166,7 +170,7 @@ def codeforces(soup, current_site, url):
             br.replace_with("\n")
         inputfile_value = inputfile_value.get_text()
 
-        make_files(problem_name, inputfile_value, current_site, True)
+        make_files(problem_name, inputfile_value, current_site, True, editor)
 
 
 if __name__ == "__main__":
@@ -199,6 +203,24 @@ if __name__ == "__main__":
             print('Not a valid problem, try again:')
             clasa.url = str(input())
 
+    editor = ''
+    with open('editor.txt', 'r') as op:
+        editor = op.read()
+    if len(editor) < 3:
+        print('What is your preffered editor? [vim,vscode,atom]')
+        text = str(input())
+        while True:
+            if text == 'vim' or text == 'vscode' or text == 'atom':
+                break
+            else:
+                print('Not a valid editor, try again:')
+                text = str(input())
+
+        with open('editor.txt', 'w') as ww:
+            ww.write(text)
+    with open('editor.txt', 'r') as op:
+        editor = op.read()
+
     # get info
     # get requests
     url = requests.get(clasa.url, headers=headers)
@@ -208,8 +230,8 @@ if __name__ == "__main__":
 
     # uatafac is that switch case python bro
     if (current_site == 'infoarena'):
-        infoarena(soup, current_site)
+        infoarena(soup, current_site, editor)
     elif (current_site == 'pbinfo'):
-        pbinfo(soup, current_site, clasa.url)
+        pbinfo(soup, current_site, clasa.url, editor)
     elif (current_site == 'codeforces'):
-        codeforces(soup, 'cf', clasa.url)
+        codeforces(soup, 'cf', clasa.url, editor)

@@ -1,4 +1,7 @@
+[![DeepSource](https://deepsource.io/gh/cristicretu/CP-Scraper.svg/?label=resolved+issues)](https://deepsource.io/gh/cristicretu/CP-Scraper/?ref=repository-badge)[![DeepSource](https://deepsource.io/gh/cristicretu/CP-Scraper.svg/?label=active+issues)](https://deepsource.io/gh/cristicretu/CP-Scraper/?ref=repository-badge)
+
 # CP-Scraper
+
 Competitive Programming Scraper is a python script that automatically creates input and output files, specific folders and pre-completed snippets, when given an online judge problem url.
 
 Also, it can open *vscode* with all the freshly made files.
