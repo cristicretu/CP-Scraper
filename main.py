@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+from pathlib import Path
 import requests
 import os
 
@@ -10,7 +11,10 @@ headers = {
 # get directory path
 with open('path.txt', 'r') as f:
     directory_path = f.read()
-directory_path = directory_path[:len(directory_path) - 1]
+    directory_path += '/'
+directory_path = directory_path[:len(directory_path) - 2]
+# -2 for linux
+# -1 for windows...
 
 
 class Scraper:
@@ -28,11 +32,22 @@ def make_files(input_name, input_value, current_site, file):
     mainfile_name = directory_name + '.cpp'
 
     # now make the directory
-    current_site = '/' + current_site + '/'
-    temp_path = directory_path + current_site
-    path = os.path.join(temp_path, directory_name)
-    os.mkdir(path)
 
+    # this is the old version for linux
+    # current_site = '/' + current_site + '/'
+    # temp_path = directory_path + current_site
+    # path = os.path.join(temp_path, directory_name)
+    # os.mkdir(path)
+
+    # pathlib
+    dir_path = Path(directory_path)
+    current_site = Path(current_site)
+
+    temp_path = dir_path / current_site
+    path = temp_path / directory_name
+    os.makedirs(path)
+
+    # write in the files
     if file is True:
         output_name = directory_name + '.out'
         if (current_site == '/cf/'):
@@ -40,12 +55,15 @@ def make_files(input_name, input_value, current_site, file):
             output_name = 'output.txt'
         # get snippets
         snippets = ''
-        with open('snippets.cpp', 'r') as fr:
+        rest = ''
+        with open('file_snippets.cpp', 'r') as io:
+            rest += io.read()
+        with open('headers.cpp', 'r') as fr:
             snippets += fr.read()
             snippets += '\nstd::ifstream fin("' + input_name + '");'
             snippets += '\nstd::ofstream fout("' + output_name + '");'
-            snippets += '\n\nint main() {\n\n  return 0;\n}'
 
+        snippets += rest
         # now create the files
         with open(os.path.join(path, input_name), 'w') as fp:
             fp.write(input_value)
@@ -53,13 +71,18 @@ def make_files(input_name, input_value, current_site, file):
             pass
     elif file is False:
         snippets = ''
-        with open('snippets.cpp', 'r') as fx:
+        rest = ''
+        with open('console_snippets.cpp', 'r') as op:
+            rest += op.read()
+        with open('headers.cpp', 'r') as fx:
             snippets += fx.read()
-            snippets += '\n\nint main() {\n  using namespace std;\n'
-            snippets += '  ios_base::sync_with_stdio(false);\n  cin.tie(nullptr);\n\n  return 0;\n}'
+
+        snippets += rest
+    # write in the snippets
     with open(os.path.join(path, mainfile_name), 'w') as fp:
         fp.write(snippets)
 
+    # user choice
     print('Do you want to open VSCODE? [y/n]:')
     choice = input()
     if choice == 'y':
@@ -114,8 +137,8 @@ def pbinfo(soup, current_site, url):
         make_files(url, inputfile_value, current_site, file)
 
 
-def replaceS(input, pattern, replaceWith):
-    return input.replace(pattern, replaceWith)
+def replaceS(sinput, pattern, replaceWith):
+    return sinput.replace(pattern, replaceWith)
 
 
 def codeforces(soup, current_site, url):
