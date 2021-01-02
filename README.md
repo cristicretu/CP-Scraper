@@ -4,7 +4,7 @@
 
 Competitive Programming Scraper is a python script that automatically creates input and output files, specific folders and pre-completed snippets, when given an online judge problem url.
 
-Also, it can open *vscode* with all the freshly made files.
+Also, it can open *VSCODE, VIM OR ATOM* with all the freshly made files.
 
 Currently, it supports ***codeforces.com***, ***infoarena.ro*** and ***pbinfo.ro***!
 
