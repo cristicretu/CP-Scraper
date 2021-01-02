@@ -1,9 +1,11 @@
 # CP-Scraper
-Competitive Programming Scraper is a python script that automatically creates input and output files, specific folders and pre-completed snippets, when given an online judge url.
+Competitive Programming Scraper is a python script that automatically creates input and output files, specific folders and pre-completed snippets, when given an online judge problem url.
 
 Also, it can open *vscode* with all the freshly made files.
 
 Currently, it supports ***codeforces.com***, ***infoarena.ro*** and ***pbinfo.ro***!
+
+It works on unix systems and windows* (not the best), but it will fully support windows soon!
 
 ## How to use it?
 
@@ -13,11 +15,13 @@ Clone this *repo*,
 git clone git@github.com:cristicretu/CP-Scraper.git
 ```
 
- and change the **path.txt** with your desired path from your PC. (Optionally) change the *snippets.cpp* with your own snippets. (they will be placed before the file input).
+ or download the zip file, and change the **path.txt** with your desired path from your PC. (Optionally) you can change *headers.cpp*-to use your own headers; *file_snippets.cpp*-to use your main snippets for file input; and *console_snippets.cpp*- to use your main snippets for console input.
 
 ## How to run it?
 
-You also need Beautiful Soup and Requests, so make sure you have them installed: (if not, run these commands in your terminal)
+For Windows, run the 2 scripts from *setup/windows* and follow the instructions there. After that, just open with *powershell* **run.ps1**.
+
+For Linux, make sure you have Beautiful Soup and Requests installed. (if not, run these commands in your terminal)
 
 ```
 pip3 install requests
