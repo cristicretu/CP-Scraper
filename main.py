@@ -210,7 +210,7 @@ if __name__ == "__main__":
         print('What is your preffered editor? [vim,vscode,atom]')
         text = str(input())
         while True:
-            if text == 'vim' or text == 'vscode' or text == 'atom':
+            if text in 'vim' or text in 'vscode' or text in 'atom':
                 break
             else:
                 print('Not a valid editor, try again:')
