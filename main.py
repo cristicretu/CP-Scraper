@@ -212,9 +212,8 @@ if __name__ == "__main__":
         while True:
             if text in 'vim' or text in 'vscode' or text in 'atom':
                 break
-            else:
-                print('Not a valid editor, try again:')
-                text = str(input())
+            print('Not a valid editor, try again:')
+            text = str(input())
 
         with open('editor.txt', 'w') as ww:
             ww.write(text)
