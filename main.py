@@ -50,7 +50,7 @@ def make_files(input_name, input_value, current_site, file, editor):
     # write in the files
     if file is True:
         output_name = directory_name + '.out'
-        if (current_site == '/cf/'):
+        if current_site == '/cf/':
             input_name = 'input.txt'
             output_name = 'output.txt'
         # get snippets
@@ -160,7 +160,7 @@ def codeforces(soup, current_site, url, editor):
 
     problem_name = number + '_' + letter + '.in'
 
-    if (get_file.split(' ')[0] == 'standard'):
+    if get_file.split(' ')[0] == 'standard':
         make_files(problem_name, '', current_site, False, editor)
     else:
         # get the input
@@ -229,9 +229,9 @@ if __name__ == "__main__":
     soup = BeautifulSoup(url.content, 'html.parser')
 
     # uatafac is that switch case python bro
-    if (current_site == 'infoarena'):
+    if current_site == 'infoarena':
         infoarena(soup, current_site, editor)
-    elif (current_site == 'pbinfo'):
+    elif current_site == 'pbinfo':
         pbinfo(soup, current_site, clasa.url, editor)
-    elif (current_site == 'codeforces'):
+    elif current_site == 'codeforces':
         codeforces(soup, 'cf', clasa.url, editor)
