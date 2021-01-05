@@ -12,9 +12,8 @@ headers = {
 with open('path.txt', 'r') as f:
     directory_path = f.read()
     directory_path += '/'
-directory_path = directory_path[:len(directory_path) - 2]
-# -2 for linux
-# -1 for windows...
+
+directory_path = Path(directory_path[:len(directory_path) - 2])
 
 
 class Scraper:
@@ -56,9 +55,9 @@ def make_files(input_name, input_value, current_site, file, editor):
         # get snippets
         snippets = ''
         rest = ''
-        with open('file_snippets.cpp', 'r') as io:
+        with open('snippets/file_snippets.cpp', 'r') as io:
             rest += io.read()
-        with open('headers.cpp', 'r') as fr:
+        with open('snippets/headers.cpp', 'r') as fr:
             snippets += fr.read()
             snippets += '\nstd::ifstream fin("' + input_name + '");'
             snippets += '\nstd::ofstream fout("' + output_name + '");'
@@ -72,9 +71,9 @@ def make_files(input_name, input_value, current_site, file, editor):
     elif file is False:
         snippets = ''
         rest = ''
-        with open('console_snippets.cpp', 'r') as op:
+        with open('snippets/console_snippets.cpp', 'r') as op:
             rest += op.read()
-        with open('headers.cpp', 'r') as fx:
+        with open('snippets/headers.cpp', 'r') as fx:
             snippets += fx.read()
 
         snippets += rest
@@ -204,7 +203,7 @@ if __name__ == "__main__":
             clasa.url = str(input())
 
     editor = ''
-    with open('editor.txt', 'r') as op:
+    with open('setup/settings/editor.txt', 'r') as op:
         editor = op.read()
     if len(editor) < 3:
         print('What is your preffered editor? [vim,vscode,atom]')
@@ -215,9 +214,9 @@ if __name__ == "__main__":
             print('Not a valid editor, try again:')
             text = str(input())
 
-        with open('editor.txt', 'w') as ww:
+        with open('setup/settings/editor.txt', 'w') as ww:
             ww.write(text)
-    with open('editor.txt', 'r') as op:
+    with open('setup/settings/editor.txt', 'r') as op:
         editor = op.read()
 
     # get info
