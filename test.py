@@ -9,3 +9,4 @@ while pyperclip.waitForPaste()[12:21] != 'infoarena':
 # daca e yes, inseamna ca vrea sa foloseasca programul
 # daca nu, a copiat din greseala
 # si inca o optiune yes (x2) - ceva de genu, ca sa si porneasca editoru preferat
+# https://pyperclip.readthedocs.io/en/latest/
