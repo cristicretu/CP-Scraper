@@ -1,7 +1,14 @@
 from bs4 import BeautifulSoup
 from pathlib import Path
+from pymsgbox import *
+import pyperclip
 import requests
+import time
 import os
+
+import pathlib
+this_path = pathlib.Path(__file__).parent.absolute()
+
 
 # user agent
 headers = {
@@ -26,7 +33,7 @@ def get_value(s):
     return ans
 
 
-def make_files(input_name, input_value, current_site, file, editor):
+def make_files(input_name, input_value, current_site, file, editor, option):
     directory_name = input_name[:len(input_name) - 3]
     mainfile_name = directory_name + '.cpp'
 
@@ -81,20 +88,24 @@ def make_files(input_name, input_value, current_site, file, editor):
     with open(os.path.join(path, mainfile_name), 'w') as fp:
         fp.write(snippets)
 
-    # user choice
-    print('Do you want to open the editor? [y/n]:')
-    choice = input()
-    if choice == 'y':
+    now_path = Path().absolute()
+
+    print(now_path)
+    if option == 'Yes and open the editor':
         os.chdir(path)
-        editor = editor + ' .'
-        if editor == 'vscode .':
-            editor = editor[2:]
+        if editor == 'VSCode':
+            editor = 'code .'
+        elif editor == 'Atom':
+            editor = 'atom .'
+        elif editor == 'Vim':
+            editor = 'vim *'
         os.system(editor)
 
-    print('Done! Good luck.')
+    os.chdir(now_path)
+    # done
 
 
-def infoarena(soup, current_site, editor):
+def infoarena(soup, current_site, editor, option):
     get_info = soup.find(class_="example")
     get_input = get_info.get_text()
 
@@ -111,10 +122,11 @@ def infoarena(soup, current_site, editor):
     inputfile_value = get_value(get_info[0])
     # outputfile_value = get_value(get_info[1]) no need for this
 
-    make_files(inputfile_name, inputfile_value, current_site, True, editor)
+    make_files(inputfile_name, inputfile_value,
+               current_site, True, editor, option)
 
 
-def pbinfo(soup, current_site, url, editor):
+def pbinfo(soup, current_site, url, editor, option):
     get_info = soup.find_all('pre')
     # get input value
     inputfile_value = get_value(get_info[0])
@@ -135,16 +147,17 @@ def pbinfo(soup, current_site, url, editor):
         file = True
 
     if file is True:
-        make_files(inputfile_neim, inputfile_value, current_site, file, editor)
+        make_files(inputfile_neim, inputfile_value,
+                   current_site, file, editor, option)
     else:
-        make_files(url, inputfile_value, current_site, file, editor)
+        make_files(url, inputfile_value, current_site, file, editor, option)
 
 
 def replaceS(sinput, pattern, replaceWith):
     return sinput.replace(pattern, replaceWith)
 
 
-def codeforces(soup, current_site, url, editor):
+def codeforces(soup, current_site, url, editor, option):
     get_file = soup.find_all(class_='input-file')
     get_file = get_file[0].get_text()[5:]
     get_file.split(' ')
@@ -160,7 +173,7 @@ def codeforces(soup, current_site, url, editor):
     problem_name = number + '_' + letter + '.in'
 
     if get_file.split(' ')[0] == 'standard':
-        make_files(problem_name, '', current_site, False, editor)
+        make_files(problem_name, '', current_site, False, editor, option)
     else:
         # get the input
         get_info = soup.find_all('pre')
@@ -169,67 +182,49 @@ def codeforces(soup, current_site, url, editor):
             br.replace_with("\n")
         inputfile_value = inputfile_value.get_text()
 
-        make_files(problem_name, inputfile_value, current_site, True, editor)
+        make_files(problem_name, inputfile_value,
+                   current_site, True, editor, option)
 
 
-if __name__ == "__main__":
-    clasa = Scraper()
-    print('What URL does your problem have?')
-    clasa.url = str(input())
+while True:  # reset the program
 
-    # check for supported site
+    recent_value = ""
     while True:
-        if clasa.url[12:21] == 'infoarena' or clasa.url[12:18] == 'pbinfo' or clasa.url[8:18] == 'codeforces':
+        tmp_value = pyperclip.paste()
+        if tmp_value != recent_value:
+            recent_value = tmp_value
+            print("Value changed: %s" % str(recent_value))
+        if (recent_value[12:21] == 'infoarena' and recent_value[25:33] == 'problema') or (recent_value[12:18] == 'pbinfo' and recent_value[22:30] == 'probleme') or (recent_value[8: 18] == 'codeforces' and (recent_value[34:41] == 'problem' or recent_value[35:42] == 'problem' or recent_value[36:43] == 'problem')):
             break
-        if clasa.url[12:21] != 'infoarena' or clasa.url[12:18] != 'pbinfo' or clasa.url[8:18] != 'codeforces':
-            print('Site not supported, try again:')
-            clasa.url = str(input())
+        time.sleep(0.1)
 
-    # check for problem in-site 25 - > 33
-    current_site = ''
-    if clasa.url[12:21] == 'infoarena':
-        current_site = 'infoarena'
-    elif clasa.url[12:18] == 'pbinfo':
-        current_site = 'pbinfo'
-    elif clasa.url[8:18] == 'codeforces':
-        current_site = 'codeforces'
+    option = confirm(text='Do you want to open CP-Scraper?',
+                     title='CP-Scraper', buttons=['Yes', 'Yes and open the editor', 'No'])
 
-    while True:
-        if (current_site == 'infoarena' and clasa.url[25:33] == 'problema') or (current_site == 'pbinfo' and clasa.url[22:30] == 'probleme') or (current_site == 'codeforces' and (clasa.url[34:41] == 'problem' or clasa.url[35:42] == 'problem' or clasa.url[36:43] == 'problem')):
-            break
+    if option == 'Yes' or option == 'Yes and open the editor':
+        editor = ''
+        with open('setup/settings/editor.txt', 'r') as op:
+            editor = op.read()
+        if len(editor) < 3:
+            optiune = confirm(text='What is your preffered editor?',
+                              title='CP-Scraper', buttons=['VSCode', 'Atom', 'Vim'])
+            with open('setup/settings/editor.txt', 'w') as ww:
+                ww.write(optiune)
+            editor = optiune
 
-        if (current_site == 'infoarena' and clasa.url[25:33] != 'problema') or (current_site == 'pbinfo' and clasa.url[22:30] != 'probleme') or (current_site == 'codeforces' and (clasa.url[34:41] != 'problem' or clasa.url[35:42] != 'problem' or clasa.url[36:43] != 'problem')):
-            print('Not a valid problem, try again:')
-            clasa.url = str(input())
+        # get info
+        # get requests
+        url = requests.get(recent_value, headers=headers)
 
-    editor = ''
-    with open('setup/settings/editor.txt', 'r') as op:
-        editor = op.read()
-    if len(editor) < 3:
-        print('What is your preffered editor? [vim,vscode,atom]')
-        text = str(input())
-        while True:
-            if text in 'vim' or text in 'vscode' or text in 'atom':
-                break
-            print('Not a valid editor, try again:')
-            text = str(input())
+        # parse the html
+        soup = BeautifulSoup(url.content, 'html.parser')
 
-        with open('setup/settings/editor.txt', 'w') as ww:
-            ww.write(text)
-    with open('setup/settings/editor.txt', 'r') as op:
-        editor = op.read()
+        # uatafac is that switch case python bro
+        if recent_value[12:21] == 'infoarena':
+            infoarena(soup, recent_value[12:21], editor, option)
+        elif recent_value[12:18] == 'pbinfo':
+            pbinfo(soup, recent_value[12:18], recent_value, editor, option)
+        elif recent_value[8:18] == 'codeforces':
+            codeforces(soup, 'cf', recent_value, editor, option)
 
-    # get info
-    # get requests
-    url = requests.get(clasa.url, headers=headers)
-
-    # parse the html
-    soup = BeautifulSoup(url.content, 'html.parser')
-
-    # uatafac is that switch case python bro
-    if current_site == 'infoarena':
-        infoarena(soup, current_site, editor)
-    elif current_site == 'pbinfo':
-        pbinfo(soup, current_site, clasa.url, editor)
-    elif current_site == 'codeforces':
-        codeforces(soup, 'cf', clasa.url, editor)
+    pyperclip.copy('Hello, World! Looks like you found an easter egg')
