@@ -4,11 +4,17 @@
 
 # CP-Scraper
 
-Competitive Programming Scraper is a python script that automatically creates input and output files, specific folders and pre-completed snippets, when given an online judge problem url.
+Competitive Programming Scraper is a python script that automatically creates input and output files, specific folders and pre-completed snippets, in just ***3 seconds***.
 
-Also, it can open *VSCODE, VIM OR ATOM* with all the freshly made files.
+Also, it can open *VSCode, Vim or Atom* with all the freshly made files.
 
 Currently, it supports ***codeforces.com***, ***infoarena.ro*** and ***pbinfo.ro***!
+
+## Why?
+
+Because it's cool.
+
+No wasting time making folders and files, getting snippets and inputs from the Online Judge. This script makes you forget about small stuff, and gets you going straight into programming - no time wasted, 3 seconds and you're set.
 
 ## How to use it?
 
@@ -22,8 +28,6 @@ git clone git@github.com:cristicretu/CP-Scraper.git
 
 ## How to run it?
 
-For Windows, run the 2 scripts from *setup/windows* and follow the instructions there. After that, just open with *powershell* **run.ps1**.
-
 For Linux, and more specifically Debian-based distros, run from *setup/unix* the *install.sh* to install the required packages. (If permission is denied, use chmod +x install.sh, and the run it with ./install.sh)
 
 Then navigate to this repo, and type:
@@ -32,13 +36,16 @@ Then navigate to this repo, and type:
 python3 main.py
 ```
 
-Now, all you have to do is to paste the *full link* of your problem.
+Now, it will run in the background, and every time you **copy** (*ctrl+c*) a link, it will automatically start.
 
-*Ex: Infoarena*
+------
 
-![](https://cdn.discordapp.com/attachments/427049682364268544/794227851753816084/ezgif.com-gif-maker.gif)![](https://cdn.discordapp.com/attachments/427049682364268544/794265081423724624/aaa.gif)
+The Windows version is 1 update behind the Unix one, so no running in the background (for now). To do the  setup, run the 2 scripts from *setup/windows* and follow the instructions there. After that, just open with *powershell* **run.ps1**.
 
-*Ex: Pbinfo; file-console input*
+------
 
+*Ex: Codeforces*
 
-Currently: 25 Downloads
+<img src="https://cdn.discordapp.com/attachments/797485737272541250/800042557769908275/codeforces.gif" style="zoom: 150%;" />![](https://cdn.discordapp.com/attachments/797485737272541250/800042578388975646/infoarenapbinfo.gif)
+
+*Ex: Infoarena & Pbinfo*
