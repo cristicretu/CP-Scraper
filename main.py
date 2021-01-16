@@ -6,10 +6,6 @@ import requests
 import time
 import os
 
-import pathlib
-this_path = pathlib.Path(__file__).parent.absolute()
-
-
 # user agent
 headers = {
     "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
