@@ -39,3 +39,6 @@ Now, all you have to do is to paste the *full link* of your problem.
 ![](https://cdn.discordapp.com/attachments/427049682364268544/794227851753816084/ezgif.com-gif-maker.gif)![](https://cdn.discordapp.com/attachments/427049682364268544/794265081423724624/aaa.gif)
 
 *Ex: Pbinfo; file-console input*
+
+
+Currently: 25 Downloads
