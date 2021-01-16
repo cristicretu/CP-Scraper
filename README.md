@@ -8,6 +8,8 @@ Competitive Programming Scraper is a python script that automatically creates in
 
 Also, it can open *VSCode, Vim or Atom* with all the freshly made files.
 
+Your favourite editor is not in this list? No problem. It can still create the files with all the snippets, all you have to do is to open the freshly created folder by this script.
+
 Currently, it supports ***codeforces.com***, ***infoarena.ro*** and ***pbinfo.ro***!
 
 ## Why?
