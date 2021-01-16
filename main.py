@@ -189,7 +189,11 @@ while True:  # reset the program
         if tmp_value != recent_value:
             recent_value = tmp_value
             print("Value changed: %s" % str(recent_value))
-        if (recent_value[12:21] == 'infoarena' and recent_value[25:33] == 'problema') or (recent_value[12:18] == 'pbinfo' and recent_value[22:30] == 'probleme') or (recent_value[8: 18] == 'codeforces' and (recent_value[34:41] == 'problem' or recent_value[35:42] == 'problem' or recent_value[36:43] == 'problem')):
+        if (recent_value[12:21] == 'infoarena' and recent_value[25:33] == 'problema') \
+            or (recent_value[12:18] == 'pbinfo' and recent_value[22:30] == 'probleme') \
+            or (recent_value[8: 18] == 'codeforces'
+                and (recent_value[34:41] == 'problem'
+                     or recent_value[35:42] == 'problem' or recent_value[36:43] == 'problem')):
             break
         time.sleep(0.1)
 
