@@ -46,6 +46,6 @@ The Windows version is 1 update behind the Unix one, so no running in the backgr
 
 *Ex: Codeforces*
 
-<img src="https://cdn.discordapp.com/attachments/797485737272541250/800042557769908275/codeforces.gif" style="zoom:150%;" /><img src="https://cdn.discordapp.com/attachments/797485737272541250/800042578388975646/infoarenapbinfo.gif" style="zoom:150%;" />
+<img src="https://cdn.discordapp.com/attachments/797485737272541250/800042557769908275/codeforces.gif" style="zoom:150%;" /><img src="https://cdn.discordapp.com/attachments/797485737272541250/800042578388975646/infoarenapbinfo.gif" />
 
 *Ex: Infoarena & Pbinfo*
