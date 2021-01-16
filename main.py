@@ -23,11 +23,6 @@ with open('path.txt', 'r') as f:
 directory_path = Path(directory_path[:len(directory_path) - 2])
 
 
-class Scraper:
-    def print(self):
-        print(self.url)
-
-
 def get_value(s):
     ans = s.get_text()
     return ans
@@ -73,13 +68,13 @@ def make_files(input_name, input_value, current_site, file, editor, option):
         # now create the files
         with open(os.path.join(path, input_name), 'w') as fp:
             fp.write(input_value)
-        with open(os.path.join(path, output_name), 'w') as fp:
-            pass
+        # with open(os.path.join(path, output_name), 'w') as fp:
+        #     pass
     elif file is False:
         snippets = ''
         rest = ''
-        with open('snippets/console_snippets.cpp', 'r') as op:
-            rest += op.read()
+        with open('snippets/console_snippets.cpp', 'r') as opes:
+            rest += opes.read()
         with open('snippets/headers.cpp', 'r') as fx:
             snippets += fx.read()
 
@@ -201,8 +196,7 @@ while True:  # reset the program
     option = confirm(text='Do you want to open CP-Scraper?',
                      title='CP-Scraper', buttons=['Yes', 'Yes and open the editor', 'No'])
 
-    if option == 'Yes' or option == 'Yes and open the editor':
-        editor = ''
+    if option in 'Yes' or option in 'Yes and open the editor':
         with open('setup/settings/editor.txt', 'r') as op:
             editor = op.read()
         if len(editor) < 3:
