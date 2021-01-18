@@ -4,7 +4,7 @@
 
 # CP-Scraper
 
-Competitive Programming Scraper is a python script that automatically creates input and output files, specific folders and pre-completed snippets, in just ***3 seconds***.
+Competitive Programming Scraper is a python script that automatically creates input and output files, specific folders and pre-completed snippets, ***instantly***.
 
 Also, it can open *VSCode, Vim or Atom* with all the freshly made files.
 
