@@ -64,8 +64,8 @@ def make_files(input_name, input_value, current_site, file, editor, option):
         # now create the files
         with open(os.path.join(path, input_name), 'w') as fp:
             fp.write(input_value)
-        # with open(os.path.join(path, output_name), 'w') as fp:
-        #     pass
+        with open(os.path.join(path, output_name), 'w') as fp:
+            pass
     elif file is False:
         snippets = ''
         rest = ''
