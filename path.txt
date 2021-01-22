@@ -1,1 +1,1 @@
-/home/cristic/Projects/cplusplus
+/home/smol/fun/cplusplus
