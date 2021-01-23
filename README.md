@@ -51,3 +51,16 @@ The Windows version is 1 update behind the Unix one, so no running in the backgr
 <img src="https://cdn.discordapp.com/attachments/797485737272541250/800042557769908275/codeforces.gif" style="zoom:150%;" /><img src="https://cdn.discordapp.com/attachments/797485737272541250/800042578388975646/infoarenapbinfo.gif" />
 
 *Ex: Infoarena & Pbinfo*
+
+## Now
+
+- I'm currently working on making the program run on startup, and after wake up from sleep. (Linux)
+
+- Next thing on the list is updating the Windows version, and then doing the same thing, running on startup.
+
+- Code cleanup, repo cleanup
+
+  Great resource: 
+
+  https://stackoverflow.com/questions/43284969/python-how-to-resume-excecution-of-python-script/43385347
+
