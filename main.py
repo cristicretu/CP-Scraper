@@ -185,7 +185,8 @@ while True:  # reset the program
         if tmp_value != recent_value:
             recent_value = tmp_value
             print("Value changed: %s" % str(recent_value))
-        if (recent_value[12:21] == 'infoarena' and recent_value[25:33] == 'problema') \
+        if (recent_value[8:17] == 'infoarena' and recent_value[21:29] == 'problema') \
+            or (recent_value[12:21] == 'infoarena' and recent_value[25:33] == 'problema') \
             or (recent_value[12:18] == 'pbinfo' and recent_value[22:30] == 'probleme') \
             or (recent_value[8: 18] == 'codeforces'
                 and (recent_value[34:41] == 'problem'
@@ -213,8 +214,9 @@ while True:  # reset the program
         # parse the html
         soup = BeautifulSoup(url.content, 'html.parser')
 
-        # uatafac is that switch case python bro
-        if recent_value[12:21] == 'infoarena':
+        if recent_value[8:17] == 'infoarena':
+            infoarena(soup, recent_value[8:17], editor, option)
+        elif recent_value[12:21] == 'infoarena':
             infoarena(soup, recent_value[12:21], editor, option)
         elif recent_value[12:18] == 'pbinfo':
             pbinfo(soup, recent_value[12:18], recent_value, editor, option)
