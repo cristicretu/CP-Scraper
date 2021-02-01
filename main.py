@@ -185,12 +185,10 @@ while True:  # reset the program
         if tmp_value != recent_value:
             recent_value = tmp_value
             print("Value changed: %s" % str(recent_value))
-        if (recent_value[8:17] == 'infoarena' and recent_value[21:29] == 'problema') \
-            or (recent_value[12:21] == 'infoarena' and recent_value[25:33] == 'problema') \
-            or (recent_value[12:18] == 'pbinfo' and recent_value[22:30] == 'probleme') \
-            or (recent_value[8: 18] == 'codeforces'
-                and (recent_value[34:41] == 'problem'
-                     or recent_value[35:42] == 'problem' or recent_value[36:43] == 'problem')):
+
+        if ('infoarena' in recent_value and 'problema' in recent_value) \
+                or ('pbinfo' in recent_value and 'probleme' in recent_value) \
+                or ('codeforces' in recent_value and 'problem' in recent_value):
             break
         time.sleep(0.1)
 
@@ -214,13 +212,11 @@ while True:  # reset the program
         # parse the html
         soup = BeautifulSoup(url.content, 'html.parser')
 
-        if recent_value[8:17] == 'infoarena':
-            infoarena(soup, recent_value[8:17], editor, option)
-        elif recent_value[12:21] == 'infoarena':
-            infoarena(soup, recent_value[12:21], editor, option)
-        elif recent_value[12:18] == 'pbinfo':
-            pbinfo(soup, recent_value[12:18], recent_value, editor, option)
-        elif recent_value[8:18] == 'codeforces':
+        if 'infoarena' in recent_value:
+            infoarena(soup, 'infoarena', editor, option)
+        elif 'pbinfo' in recent_value:
+            pbinfo(soup, 'pbinfo', recent_value, editor, option)
+        elif 'codeforces' in recent_value:
             codeforces(soup, 'cf', recent_value, editor, option)
 
     pyperclip.copy('Hello, World! Looks like you found an easter egg')
