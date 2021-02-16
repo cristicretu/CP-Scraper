@@ -28,8 +28,6 @@ git clone git@github.com:cristicretu/CP-Scraper.git
 
  or download the zip file, *and change the **path.txt** with your desired path from your PC.* (Optionally) you can change from the folder *snippets*:  *headers.cpp* - to use your own headers;  *file_snippets.cpp* - to use your main snippets for file input;  *console_snippets.cpp* -  to use your main snippets for console input.
 
-## How to run it?
-
 For Linux, and specifically Debian-based distros, make sure you have installed python3 and the required dependencies :
 
 ```
