@@ -4,7 +4,7 @@
 
 # CP-Scraper
 
-Competitive Programming Scraper is a python script that automatically creates input and output files, specific folders and pre-completed snippets, ***instantly***.
+Competitive Programming Scraper is a python script that automatically creates input and output files, specific folders and pre-completed snippets, ***instantly***, for C++.
 
 Also, it can open *VSCode, Vim or Atom* with all the freshly made files.
 
@@ -16,7 +16,7 @@ Currently, it supports ***codeforces.com***, ***infoarena.ro*** and ***pbinfo.ro
 
 Because it's cool.
 
-No wasting time making folders and files, getting snippets and inputs from the Online Judge. This script makes you forget about small stuff, and gets you going straight into programming - no time wasted, 3 seconds and you're set.
+No wasting time making folders and files, getting snippets and inputs from the Online Judge. This script makes you forget about small stuff, and gets you going straight into programming - no time wasted, 1 second and you're set.
 
 ## How to use it?
 
@@ -26,23 +26,28 @@ Clone this *repo*,
 git clone git@github.com:cristicretu/CP-Scraper.git
 ```
 
- or download the zip file, and change the **path.txt** with your desired path from your PC. (Optionally) you can change from the folder *snippets*:  *headers.cpp* - to use your own headers;  *file_snippets.cpp* - to use your main snippets for file input;  *console_snippets.cpp* -  to use your main snippets for console input.
+ or download the zip file, *and change the **path.txt** with your desired path from your PC.* (Optionally) you can change from the folder *snippets*:  *headers.cpp* - to use your own headers;  *file_snippets.cpp* - to use your main snippets for file input;  *console_snippets.cpp* -  to use your main snippets for console input.
 
 ## How to run it?
 
-For Linux, and more specifically Debian-based distros, run from *setup/unix* the *install.sh* to install the required packages. (If permission is denied, use chmod +x install.sh, and the run it with ./install.sh)
+For Linux, and specifically Debian-based distros, make sure you have installed python3 and the required dependencies :
+
+```
+sudo apt install python3
+sudo apt install python3-tk
+pip3 install pymsgbog
+pip3 install bs4
+pip3 install requests
+pip3 install pyperclip
+```
 
 Then navigate to this repo, and type:
 
 ```
-python3 main.py
+python3.8 main.py
 ```
 
-Now, it will run in the background, and every time you **copy** (*ctrl+c*) a link, it will automatically start.
-
-------
-
-The Windows version is 1 update behind the Unix one, so no running in the background (for now). To do the  setup, run the 2 scripts from *setup/windows* and follow the instructions there. After that, just open with *powershell* **run.ps1**.
+Now, it will run in the background, and every time you **copy** (*ctrl+c*) a link from an supported Online Judge Site, it will automatically start.
 
 ------
 
@@ -54,13 +59,6 @@ The Windows version is 1 update behind the Unix one, so no running in the backgr
 
 ## Now
 
-- I'm currently working on making the program run on startup, and after wake up from sleep. (Linux)
-
-- Next thing on the list is updating the Windows version, and then doing the same thing, running on startup.
-
-- Code cleanup, repo cleanup
-
-  Great resource: 
-
-  -https://stackoverflow.com/questions/43284969/python-how-to-resume-excecution-of-python-script/43385347
+- Add support for more sites
+- Figure out how to make it work on Windows
 
