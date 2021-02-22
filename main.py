@@ -58,8 +58,10 @@ def make_files(input_name, input_value, current_site, file, editor, option):
             rest += io.read()
         with open('snippets/headers.cpp', 'r') as fr:
             snippets += fr.read()
-            snippets += '\nstd::ifstream fin("' + input_name + '");'
-            snippets += '\nstd::ofstream fout("' + output_name + '");'
+            snippets += '\nstd::fstream fin("' + \
+                input_name + '", std::ios::in);'
+            snippets += '\nstd::fstream fout("' + \
+                output_name + '", std::ios::out);'
 
         snippets += rest
         # now create the files
