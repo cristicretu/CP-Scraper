@@ -12,40 +12,22 @@ Your favourite editor is not in this list? No problem. It can still create the f
 
 Currently, it supports ***codeforces.com***, ***infoarena.ro*** and ***pbinfo.ro***!
 
-## Why?
+## Running
 
-Because it's cool.
+Clone this *repo*,*and change the **path.txt** with your desired path from your PC.
 
-No wasting time making folders and files, getting snippets and inputs from the Online Judge. This script makes you forget about small stuff, and gets you going straight into programming - no time wasted, 1 second and you're set.
-
-## How to use it?
-
-Clone this *repo*,
+For MacOS and Linux make sure you have installed python and this project' s dependencies:
 
 ```
-git clone git@github.com:cristicretu/CP-Scraper.git
+pip3 install pymsgbox bs4 requests pyperclip
 ```
 
- or download the zip file, *and change the **path.txt** with your desired path from your PC.* (Optionally) you can change from the folder *snippets*:  *headers.cpp* - to use your own headers;  *file_snippets.cpp* - to use your main snippets for file input;  *console_snippets.cpp* -  to use your main snippets for console input.
-
-For Linux, and specifically Debian-based distros, make sure you have installed python3 and the required dependencies :
-
+Then execute using:
 ```
-sudo apt install python3
-sudo apt install python3-tk
-pip3 install pymsgbog
-pip3 install bs4
-pip3 install requests
-pip3 install pyperclip
+python3.9 main.py
 ```
 
-Then navigate to this repo, and type:
-
-```
-python3.8 main.py
-```
-
-Now, it will run in the background, and every time you **copy** (*ctrl+c*) a link from an supported Online Judge Site, it will automatically start.
+Now, it will run in the background, and every time you **copy** a link from an supported Online Judge Site, it will automatically start.
 
 ------
 
@@ -58,5 +40,3 @@ Now, it will run in the background, and every time you **copy** (*ctrl+c*) a lin
 ## Now
 
 - Add support for more sites
-- Figure out how to make it work on Windows
-
