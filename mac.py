@@ -39,7 +39,7 @@ def make_files(input_name, input_value, current_site, file):
     temp_path = dir_path / current_site
     path = temp_path / directory_name
     os.makedirs(path)
-
+    print(path)
     # write in the files
     if file is True:
         output_name = directory_name + '.out'
@@ -78,9 +78,6 @@ def make_files(input_name, input_value, current_site, file):
         fp.write(snippets)
 
     now_path = Path().absolute()
-
-    print(now_path)
-
     os.chdir(now_path)
     # done
 
