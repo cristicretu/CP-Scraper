@@ -24,7 +24,8 @@ pip3 install pymsgbox bs4 requests pyperclip
 
 Then execute using:
 ```
-python3.9 main.py
+python3.9 main.py #for linux
+python3.9 mac.py #for mac
 ```
 
 Now, it will run in the background, and every time you **copy** a link from an supported Online Judge Site, it will automatically start.
@@ -36,6 +37,10 @@ Now, it will run in the background, and every time you **copy** a link from an s
 <img src="https://cdn.discordapp.com/attachments/797485737272541250/800042557769908275/codeforces.gif" style="zoom:150%;" /><img src="https://cdn.discordapp.com/attachments/797485737272541250/800042578388975646/infoarenapbinfo.gif" />
 
 *Ex: Infoarena & Pbinfo*
+
+*Ex: Infoarena on Mac*
+<img src="https://cdn.discordapp.com/attachments/797485737272541250/836523541125005319/mac.gif" />
+
 
 ## Now
 
