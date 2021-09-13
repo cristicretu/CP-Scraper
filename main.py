@@ -13,11 +13,8 @@ headers = {
                   'Chrome/42.0.2311.135 Safari/537.36 Edge/12.246'}
 
 # get directory path
-with open('..setup/settings/path.txt', 'r') as f:
+with open('.setup/settings/path.txt', 'r') as f:
     directory_path = f.read()
-    directory_path += '/'
-    if directory_path:
-        directory_path = Path(directory_path[:len(directory_path) - 2])
 
 def get_value(s):
     ans = s.get_text()
@@ -195,7 +192,7 @@ while True:  # reset the program
         time.sleep(0.1)
 
     if directory_path == '':
-        with open('..setup/settings/path.txt', 'w') as f:
+        with open('.setup/settings/path.txt', 'w') as f:
             directory_path = input("Where do you want to save the files? [navigate there and copy the output of 'pwd' command and paste it here")
             directory_path += '/'
 

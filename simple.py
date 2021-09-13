@@ -10,9 +10,9 @@ headers = {
 # get directory path
 with open('.setup/settings/path.txt', 'r') as f:
     directory_path = f.read()
-    if directory_path:
-        directory_path += '/'
-        directory_path = Path(directory_path[:len(directory_path) - 2])
+    # if directory_path:
+        # directory_path += '/'
+        # directory_path = Path(directory_path[:len(directory_path) - 1])
 
 
 def get_value(s):
@@ -25,7 +25,7 @@ def make_files(input_name, input_value, current_site, file):
     mainfile_name = directory_name + '.cpp'
 
     # now make the directory
-
+    
     # this is the old version for linux
     # current_site = '/' + current_site + '/'
     # temp_path = directory_path + current_site
