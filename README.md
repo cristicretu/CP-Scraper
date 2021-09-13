@@ -14,8 +14,6 @@ Currently, it supports ***codeforces.com***, ***infoarena.ro*** and ***pbinfo.ro
 
 ## Running
 
-Clone this *repo*,*and change the **path.txt** with your desired path from your PC.
-
 Run the following command to install the requirements: 
 ```
 pip install -r requirements.txt
@@ -39,4 +37,4 @@ python3.9 simple.py # this will do a single-file creation
 <img src="https://cdn.discordapp.com/attachments/797485737272541250/836523541125005319/mac.gif" />
 
 
-## Future add leetcode support 
+## In the future: add leetcode support 
