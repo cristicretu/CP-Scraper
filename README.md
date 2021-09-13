@@ -16,19 +16,16 @@ Currently, it supports ***codeforces.com***, ***infoarena.ro*** and ***pbinfo.ro
 
 Clone this *repo*,*and change the **path.txt** with your desired path from your PC.
 
-For MacOS and Linux make sure you have installed python and this project' s dependencies:
-
+Run the following command to install the requirements: 
 ```
-pip3 install pymsgbox bs4 requests pyperclip
+pip install -r requirements.txt
 ```
 
 Then execute using:
 ```
-python3.9 main.py #for linux
-python3.9 mac.py #for mac
+python3.9 main.py # this will run in the background and turn on when you copy a link
+python3.9 simple.py # this will do a single-file creation
 ```
-
-Now, it will run in the background, and every time you **copy** a link from an supported Online Judge Site, it will automatically start.
 
 ------
 
@@ -38,10 +35,8 @@ Now, it will run in the background, and every time you **copy** a link from an s
 
 *Ex: Infoarena & Pbinfo*
 
-*Ex: Infoarena on Mac*
+*Ex: Infoarena*
 <img src="https://cdn.discordapp.com/attachments/797485737272541250/836523541125005319/mac.gif" />
 
 
-## Now
-
-- Add support for more sites
+## Future add leetcode support 
