@@ -162,7 +162,7 @@ def codeforces(soup, current_site, url):
 
 url = input()
 
-nurl = requests.get(url, headers=headers);
+nurl = requests.get(url, headers=headers)
 soup = BeautifulSoup(nurl.content, 'html.parser')
 
 if directory_path == '':
