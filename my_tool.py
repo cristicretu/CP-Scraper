@@ -1,37 +1,22 @@
+import click
 from bs4 import BeautifulSoup
 from pathlib import Path
-from pymsgbox import *
-import pyperclip
 import requests
-import time
 import os
 
-
-# user agent
 headers = {
     "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
                   'Chrome/42.0.2311.135 Safari/537.36 Edge/12.246'}
-
-# get directory path
-with open('.setup/settings/path.txt', 'r') as f:
-    directory_path = f.read()
 
 def get_value(s):
     ans = s.get_text()
     return ans
 
 
-def make_files(input_name, input_value, current_site, file, editor, option):
+def make_files(input_name, input_value, current_site, file, directory_path):
     directory_name = input_name[:len(input_name) - 3]
     mainfile_name = directory_name + '.cpp'
 
-    # now make the directory
-
-    # this is the old version for linux
-    # current_site = '/' + current_site + '/'
-    # temp_path = directory_path + current_site
-    # path = os.path.join(temp_path, directory_name)
-    # os.mkdir(path)
 
     # pathlib
     dir_path = Path(directory_path)
@@ -40,7 +25,7 @@ def make_files(input_name, input_value, current_site, file, editor, option):
     temp_path = dir_path / current_site
     path = temp_path / directory_name
     os.makedirs(path)
-
+    print(path)
     # write in the files
     if file is True:
         output_name = directory_name + '.out'
@@ -79,23 +64,11 @@ def make_files(input_name, input_value, current_site, file, editor, option):
         fp.write(snippets)
 
     now_path = Path().absolute()
-
-    print(now_path)
-    if option == 'Yes and open the editor':
-        os.chdir(path)
-        if editor == 'VSCode':
-            editor = 'code .'
-        elif editor == 'Atom':
-            editor = 'atom .'
-        elif editor == 'Vim':
-            editor = 'vim *'
-        os.system(editor)
-
     os.chdir(now_path)
     # done
 
 
-def infoarena(soup, current_site, editor, option):
+def infoarena(soup, current_site, directory_path):
     get_info = soup.find(class_="example")
     get_input = get_info.get_text()
 
@@ -112,11 +85,10 @@ def infoarena(soup, current_site, editor, option):
     inputfile_value = get_value(get_info[0])
     # outputfile_value = get_value(get_info[1]) no need for this
 
-    make_files(inputfile_name, inputfile_value,
-               current_site, True, editor, option)
+    make_files(inputfile_name, inputfile_value, current_site, True, directory_path)
 
 
-def pbinfo(soup, current_site, url, editor, option):
+def pbinfo(soup, current_site, url, directory_path):
     get_info = soup.find_all('pre')
     # get input value
     inputfile_value = get_value(get_info[0])
@@ -137,17 +109,14 @@ def pbinfo(soup, current_site, url, editor, option):
         file = True
 
     if file is True:
-        make_files(inputfile_neim, inputfile_value,
-                   current_site, file, editor, option)
+        make_files(inputfile_neim, inputfile_value, current_site, file, directory_path)
     else:
-        make_files(url, inputfile_value, current_site, file, editor, option)
-
+        make_files(url, inputfile_value, current_site, file, directory_path)
 
 def replaceS(sinput, pattern, replaceWith):
     return sinput.replace(pattern, replaceWith)
 
-
-def codeforces(soup, current_site, url, editor, option):
+def codeforces(soup, current_site, url, directory_path):
     get_file = soup.find_all(class_='input-file')
     get_file = get_file[0].get_text()[5:]
     get_file.split(' ')
@@ -163,7 +132,7 @@ def codeforces(soup, current_site, url, editor, option):
     problem_name = number + '_' + letter + '.in'
 
     if get_file.split(' ')[0] == 'standard':
-        make_files(problem_name, '', current_site, False, editor, option)
+        make_files(problem_name, '', current_site, False, directory_path)
     else:
         # get the input
         get_info = soup.find_all('pre')
@@ -172,55 +141,32 @@ def codeforces(soup, current_site, url, editor, option):
             br.replace_with("\n")
         inputfile_value = inputfile_value.get_text()
 
-        make_files(problem_name, inputfile_value,
-                   current_site, True, editor, option)
+        make_files(problem_name, inputfile_value, current_site, True, directory_path)
 
+@click.command()
+@click.argument('url')
+@click.option('--location', '-l')
+def main(url, location):
+    # get directory path
+    with open('./path.txt', 'r') as f:  
+        directory_path = f.read()
 
-while True:  # reset the program
+    if directory_path == '' and not location:
+        click.echo("Save location not provided. Use --location </location> to change it.")
+        quit()
+    elif directory_path == '' and location:
+        with open('./path.txt', 'w') as f:
+            f.write(location)
 
-    recent_value = ""
-    while True:
-        tmp_value = pyperclip.paste()
-        if tmp_value != recent_value:
-            recent_value = tmp_value
-            print("Value changed: %s" % str(recent_value))
+    request_url = requests.get(url, headers=headers);
+    soup = BeautifulSoup(request_url.content, 'html.parser')
 
-        if ('infoarena' in recent_value and 'problema' in recent_value) \
-                or ('pbinfo' in recent_value and 'probleme' in recent_value) \
-                or ('codeforces' in recent_value and 'problem' in recent_value):
-            break
-        time.sleep(0.1)
+    if 'infoarena' in url:
+      infoarena(soup, 'infoarena', directory_path)
+    elif 'pbinfo' in url:
+      pbinfo(soup, 'pbinfo', url, directory_path)
+    elif 'codefores' in url:
+      codeforces(soup, 'cf', url, directory_path)
 
-    if directory_path == '':
-        with open('.setup/settings/path.txt', 'w') as f:
-            directory_path = input("Where do you want to save the files? [navigate there and copy the output of 'pwd' command and paste it here")
-            directory_path += '/'
-
-    option = confirm(text='Do you want to open CP-Scraper?',
-                     title='CP-Scraper', buttons=['Yes', 'Yes and open the editor', 'No'])
-
-    if option in 'Yes' or option in 'Yes and open the editor':
-        with open('setup/settings/editor.txt', 'r') as op:
-            editor = op.read()
-        if len(editor) < 3:
-            optiune = confirm(text='What is your preffered editor?',
-                              title='CP-Scraper', buttons=['VSCode', 'Atom', 'Vim'])
-            with open('setup/settings/editor.txt', 'w') as ww:
-                ww.write(optiune)
-            editor = optiune
-
-        # get info
-        # get requests
-        url = requests.get(recent_value, headers=headers)
-
-        # parse the html
-        soup = BeautifulSoup(url.content, 'html.parser')
-
-        if 'infoarena' in recent_value:
-            infoarena(soup, 'infoarena', editor, option)
-        elif 'pbinfo' in recent_value:
-            pbinfo(soup, 'pbinfo', recent_value, editor, option)
-        elif 'codeforces' in recent_value:
-            codeforces(soup, 'cf', recent_value, editor, option)
-
-    pyperclip.copy('Hello, World! Looks like you found an easter egg')
+if __name__ == "__main__":
+    main()
